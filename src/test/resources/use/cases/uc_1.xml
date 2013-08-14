@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite  name="UC 1 - Login/Setup Profile" verbose="1" parallel="methods" thread-count="2">
+
+    <test name="UC 1.2 - Trainee Login">
+        <classes>
+            <class name="com.livetell.LoginTests"/>
+        </classes>
+    </test>
+
+    <test name="UC 1.8 - Trainee Login2">
+        <classes>
+            <class name="com.livetell.LoginTests2"/>
+        </classes>
+    </test>
+
+</suite>

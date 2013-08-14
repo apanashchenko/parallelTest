@@ -1,0 +1,42 @@
+<configuration>
+
+    <!--Output log into Lilith monitor-->
+    <appender name="multiplex" class="de.huxhorn.lilith.logback.appender.ClassicMultiplexSocketAppender">
+        <Compressing>true</Compressing>
+        <RemoteHost>localhost</RemoteHost>
+        <!--<RemoteHosts>localhost, 92.51.143.94</RemoteHosts>-->
+        <!--<Port>4560</Port>-->
+        <ReconnectionDelay>10000</ReconnectionDelay>
+        <IncludeCallerData>true</IncludeCallerData>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <!--Output log into CONSOLE-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    </appender>
+
+    <!--Output log into File-->
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>log/log-${bySecond}.txt</file>
+        <encoder>
+         <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+      <level>ALL</level>
+  </appender>
+
+  <root level="debug">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref ="multiplex"/>
+    <appender-ref ref="FILE" />
+  </root>
+
+</configuration>

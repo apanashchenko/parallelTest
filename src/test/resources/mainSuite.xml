@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite  name="All suits" verbose="1" >
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="fw.basic.wrap.ScreenshotListener"/>
+    </listeners>
+
+    <suite-files>
+        <suite-file path="use/cases/uc_1.xml" />
+    </suite-files>
+
+</suite>
