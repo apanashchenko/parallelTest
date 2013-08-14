@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite  name="UC 1 - Login/Setup Profile" verbose="1" parallel="methods" thread-count="2">
+<suite  name="UC 1 - Login/Setup Profile" verbose="1" parallel="tests" thread-count="2">
 
     <test name="UC 1.2 - Trainee Login">
         <classes>

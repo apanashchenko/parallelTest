@@ -25,9 +25,9 @@ import java.text.ParseException;
  **/
 public class ApplicationManager {
 
-    private static final String defaultBrowser = "FIREFOX";
+    private static final String defaultBrowser = "CHROME";
     private static final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
-    private static ApplicationManager applicationManager = new ApplicationManager();
+    private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
     private static String browserType;
     private static String serverSite;
     private static String saucelabsLogin;
@@ -39,6 +39,10 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private NavigationHelper2 navigationHelper2;
     private LoginHelper2 loginHelper2;
+
+    public static ThreadLocal<ApplicationManager> getThreadAppManager() {
+        return applicationManager;
+    }
 
     /**
      * Read properties from Maven command line
@@ -57,12 +61,8 @@ public class ApplicationManager {
      * Create instance of ApplicationManager
      **/
     public static ApplicationManager getInstance() {
-//        if (applicationManager == null){
-//            applicationManager = new ApplicationManager();
-//            System.out.println("!!!!!!!!!!!!!!!!!!ApplicationManager getInstance " + Thread.currentThread().getId());
-//        }
         System.out.println("!!!!!!!!!!!!!!!!!!ApplicationManager getInstance " + Thread.currentThread().getId());
-        return applicationManager;
+        return applicationManager.get();
     }
 
     /**

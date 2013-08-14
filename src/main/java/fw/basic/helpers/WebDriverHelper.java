@@ -4,6 +4,7 @@ package fw.basic.helpers;
 import fw.basic.ApplicationManager;
 import fw.basic.data.BaseDataProvider;
 import fw.basic.data.properties.BrowserTypes;
+import fw.basic.data.properties.EnvironmentProperties;
 import fw.basic.wrap.ActionListener;
 import fw.basic.wrap.CustomEventFiringWebDriver;
 import fw.basic.wrap.TracingWebDriver;
@@ -17,12 +18,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,6 +61,8 @@ public class WebDriverHelper implements BaseDataProvider {
             case CHROME: initLocalChrome();
                 break;
             case IE: initLocalInternetExplorer();
+                break;
+            case CHROME_SAUCELABS: initChromeSaucelabs();
                 break;
         }
         this.manager = manager;
@@ -119,6 +125,27 @@ public class WebDriverHelper implements BaseDataProvider {
         capabilIe.setCapability("nativeEvents", true);
         driver = new EventFiringWebDriver(new TracingWebDriver(new InternetExplorerDriver(capabilIe)));
         ((EventFiringWebDriver) driver).register(new ActionListener(driver));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        ApplicationManager.getInstance().setBrowserInfo(getBrowserInfo());
+        driver.get(ApplicationManager.getServerSite());
+    }
+
+    private void initChromeSaucelabs() {
+        DesiredCapabilities capabilChrome = DesiredCapabilities.chrome();
+        capabilChrome.setCapability("nativeEvents", true);
+        capabilChrome.setCapability("selenium-version", "2.34.0");
+        capabilChrome.setCapability("platform", "Windows 7");
+        capabilChrome.setCapability("name", "Chrome tests");
+        capabilChrome.setCapability("screen-resolution", "1280x1024");
+        try {
+            driver = new RemoteWebDriver(
+                    new URL("http://"+ ApplicationManager.getSaucelabsLogin() +":"+ ApplicationManager.getSaucelabsApiKey()
+                            + "@ondemand.saucelabs.com:80/wd/hub"), capabilChrome);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        //((EventFiringWebDriver) driver).register(new ActionListener(driver));
+        ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         ApplicationManager.getInstance().setBrowserInfo(getBrowserInfo());
         driver.get(ApplicationManager.getServerSite());

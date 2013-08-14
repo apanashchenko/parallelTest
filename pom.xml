@@ -69,7 +69,7 @@
                         <webdriver.driver>${webdriver.driver.version}</webdriver.driver>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/resources/$mainSuite.xml</suiteXmlFile>
+                        <suiteXmlFile>${basedir}/src/test/resources/${suite}.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>

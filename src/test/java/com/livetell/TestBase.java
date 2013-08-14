@@ -5,8 +5,7 @@ import fw.basic.data.BaseDataProvider;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.Reporter;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 
@@ -31,7 +30,7 @@ public class TestBase implements BaseDataProvider {
     /**
      * Set up before test suite
      */
-    @BeforeSuite
+//    @BeforeSuite
     public void setUpBeforeSuite(ITestContext iTestContext) {
         app = new ApplicationManager();
         app.setUpProperties();
@@ -44,6 +43,12 @@ public class TestBase implements BaseDataProvider {
      */
     @BeforeTest
     public void deleteCookies() {
+        app = new ApplicationManager();
+        //set instance to Thread
+        app.getThreadAppManager().set(app);
+        app.setUpProperties();
+//        iTestContext.setAttribute("application", app);
+        LOG.info("Read system properties before suite");;
         app = ApplicationManager.getInstance();
         browser = app.getBrowserType();
         serverSite = app.getServerSite();
@@ -65,9 +70,9 @@ public class TestBase implements BaseDataProvider {
     /**
      * Set up after test suite
      */
-    @AfterSuite
+    @AfterTest
     public void tearDown() {
-        app.stop();
+        app.getThreadAppManager().get().stop();
         LOG.info("Stopped tests");
     }
 }

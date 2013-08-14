@@ -114,6 +114,7 @@ public class LoginPage2 extends BaseHelper implements LoginDataProviders {
      * @param messageText error message text
      * */
     public void checkErrorMessage(By locator, String messageText) {
+        waitABit(3);
         waitElementPresent(locator);
         implicitlyWait(10);
         if (getBrowser().equals(BROWSER_INTERNET_EXPLORER)) {

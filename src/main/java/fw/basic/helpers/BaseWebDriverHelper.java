@@ -374,7 +374,7 @@ public class BaseWebDriverHelper implements WebDriverBaseDataProviders, BaseData
     protected void waitABit(int seconds) {
         int i = seconds * 1000;
         try {
-            Thread.sleep(i);
+            Thread.currentThread().sleep(i);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
