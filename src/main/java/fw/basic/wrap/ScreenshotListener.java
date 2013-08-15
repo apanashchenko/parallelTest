@@ -17,8 +17,7 @@ import java.text.ParseException;
  */
 public class ScreenshotListener implements IInvokedMethodListener2 {
 
-    protected static org.slf4j.Logger LOG = LoggerFactory.getLogger("TEST");
-    private ApplicationManager manager = new  ApplicationManager();
+    protected org.slf4j.Logger LOG = LoggerFactory.getLogger("TEST");
 
     @Override
     public void beforeInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
@@ -33,7 +32,7 @@ public class ScreenshotListener implements IInvokedMethodListener2 {
         if (m.isTestMethod()) {
             if (!res.isSuccess()) {
                 if (res.getThrowable() == null) {
-                    ApplicationManager.getThreadAppManager().get().stop();
+                    ApplicationManager.getThreadAppManager().get().getWebDriverHelper().stop();
                     Reporter.log("<big> <b style=\"color:red\">Setup method i failed</big></b><br/>");
                 } else {
                     String errorMessage = Throwables.getStackTraceAsString(res.getThrowable());
@@ -50,7 +49,7 @@ public class ScreenshotListener implements IInvokedMethodListener2 {
                         if (ApplicationManager.getSaucelabsLogin() == null) {
                             ApplicationManager app = (ApplicationManager) iTestContext.getAttribute("application");
                             try {
-                                ApplicationManager.getThreadAppManager().get().getScreenshot(res);
+                                app.getThreadAppManager().get().getWebDriverHelper().getScreenshot(res);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             } catch (ParseException e) {

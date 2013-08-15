@@ -28,26 +28,15 @@ public class TestBase implements BaseDataProvider {
     protected static String serverSite = ApplicationManager.getServerSite();
 
     /**
-     * Set up before test suite
-     */
-//    @BeforeSuite
-    public void setUpBeforeSuite(ITestContext iTestContext) {
-        app = new ApplicationManager();
-        app.setUpProperties();
-        iTestContext.setAttribute("application", app);
-        LOG.info("Read system properties before suite");
-    }
-
-    /**
      * Set up before test
      */
     @BeforeTest
-    public void deleteCookies() {
+    public void setUpBeforeTest(ITestContext iTestContext) {
         app = new ApplicationManager();
         //set instance to Thread
         app.getThreadAppManager().set(app);
         app.setUpProperties();
-//        iTestContext.setAttribute("application", app);
+        iTestContext.setAttribute("application", app);
         LOG.info("Read system properties before suite");;
         app = ApplicationManager.getInstance();
         browser = app.getBrowserType();
@@ -68,11 +57,11 @@ public class TestBase implements BaseDataProvider {
     }
 
     /**
-     * Set up after test suite
+     * Set up after test
      */
     @AfterTest
     public void tearDown() {
-        app.getThreadAppManager().get().stop();
+        app.getThreadAppManager().get().getWebDriverHelper().stop();
         LOG.info("Stopped tests");
     }
 }

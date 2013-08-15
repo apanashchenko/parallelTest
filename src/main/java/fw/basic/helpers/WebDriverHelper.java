@@ -4,7 +4,6 @@ package fw.basic.helpers;
 import fw.basic.ApplicationManager;
 import fw.basic.data.BaseDataProvider;
 import fw.basic.data.properties.BrowserTypes;
-import fw.basic.data.properties.EnvironmentProperties;
 import fw.basic.wrap.ActionListener;
 import fw.basic.wrap.CustomEventFiringWebDriver;
 import fw.basic.wrap.TracingWebDriver;
@@ -48,7 +47,7 @@ import static org.testng.Assert.fail;
  **/
 public class WebDriverHelper implements BaseDataProvider {
 
-    private static WebDriver driver;
+    private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
     private final ApplicationManager manager;
 
