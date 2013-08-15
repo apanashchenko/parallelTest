@@ -1,6 +1,7 @@
 package pages.login;
 
-import fw.basic.helpers.BaseHelper;
+import fw.basic.ApplicationManager;
+import fw.basic.helpers.BaseWebDriverHelper;
 import org.openqa.selenium.By;
 import pages.login.data.LoginDataProviders;
 import pages.login.data.Role;
@@ -14,14 +15,19 @@ import pages.staticdata.ErrorMessages;
  * Time: 21:33
  * To change this template use File | Settings | File Templates.
  */
-public class LoginHelper extends BaseHelper implements LoginDataProviders {
+public class LoginHelper extends BaseWebDriverHelper implements LoginDataProviders {
 
     private LoginPage loginPage;
+
+    public LoginHelper() {
+        super(ApplicationManager.getInstance());
+    }
 
     private LoginPage onLoginPage() {
         if (loginPage == null) {
             return new LoginPage();
         }
+        openUrl(ApplicationManager.getServerSite() + "/login/signin.htm");
         return loginPage;
     }
 

@@ -1,10 +1,12 @@
 package pages.login2;
 
-import fw.basic.helpers.BaseHelper;
+import fw.basic.ApplicationManager;
+import fw.basic.helpers.BaseWebDriverHelper;
 import org.openqa.selenium.By;
-import pages.staticdata.ErrorMessages;
 import pages.login2.data.LoginDataProviders;
 import pages.login2.data.Role;
+import pages.login2.pages.LoginPage2;
+import pages.staticdata.ErrorMessages;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,9 +15,13 @@ import pages.login2.data.Role;
  * Time: 21:33
  * To change this template use File | Settings | File Templates.
  */
-public class LoginHelper2 extends BaseHelper implements LoginDataProviders {
+public class LoginHelper2 extends BaseWebDriverHelper implements LoginDataProviders {
 
     private LoginPage2 loginPage2;
+
+    public LoginHelper2() {
+        super(ApplicationManager.getInstance());
+    }
 
     private LoginPage2 onLoginPage() {
         if (loginPage2 == null) {

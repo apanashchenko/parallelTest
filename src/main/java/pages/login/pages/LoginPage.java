@@ -1,6 +1,7 @@
 package pages.login.pages;
 
-import fw.basic.helpers.BaseHelper;
+import fw.basic.ApplicationManager;
+import fw.basic.helpers.BaseWebDriverHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,9 +19,54 @@ import ru.yandex.qatools.htmlelements.element.TextInput;
  * Time: 16:10
  * To change this template use File | Settings | File Templates.
  */
-public class LoginPage extends BaseHelper implements LoginDataProviders {
+public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders {
+
+    private String firstTimeHereLink = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_P + ROLE_SWITCHER_LINK;
+    private String alreadyHavePasswordLink = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_P + ROLE_SWITCHER_LINK;
 
     /**Page WebElements**/
+    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_RECRUIT_ID_FIELD)
+    private TextInput traineeFirstLoginRecruitIDField;
+
+    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_PASSWORD_FIELD)
+    private TextInput traineeFirstLoginPasswordField;
+
+    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + LOGIN_BUTTON)
+    private Button traineeFirstLoginButton;
+
+    @FindBy(xpath = ROLE_SWITCHER_LINK)
+    private Button switchRoleLink;
+
+    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_RECRUIT_ID_FIELD)
+    private TextInput traineeRecruitIDField;
+
+    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_PASSWORD_FIELD)
+    private TextInput traineePasswordField;
+
+    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + LOGIN_BUTTON)
+    private Button traineeLoginButton;
+
+    @FindBy(xpath = VECTOR_CONNECT_BUTTON)
+    private Button vectorConnectButton;
+
+    @FindBy(xpath = SUBMIT_BUTTON)
+    private Button submit;
+
+    @FindBy(xpath = FORGOT_PASSWORD_LINK)
+    private Button forgotPassword;
+
+    @FindBy(id = REP_NUMBER_FIELD)
+    private TextInput repNumber;
+
+    @FindBy(id = VECTOR_CONNECT_PASSWORD)
+    protected TextInput vectorConnectPassword;
+
+    @FindBy(xpath = ACTIVE_LOGIN_FORM + LOGIN_BUTTON)
+    private Button repLoginButton;
+
+    @FindBy(xpath = LOG_OUT_BUTTON)
+    private Button logOutButton;
+
     @FindBy(xpath = "//a[@href='/webapp/profile/setup.htm']")
     private Link setupProfileLink;
 
@@ -35,6 +81,10 @@ public class LoginPage extends BaseHelper implements LoginDataProviders {
 
     @FindBy(id = "password")
     private TextInput newPassword;
+
+    public LoginPage() {
+        super(ApplicationManager.getInstance());
+    }
 
     /** Verify Login pages. */
     public void checkLoginPage() {
@@ -92,7 +142,6 @@ public class LoginPage extends BaseHelper implements LoginDataProviders {
                 break;
             case REP:
                 waitElementPresent(By.xpath(LOG_OUT_BUTTON));
-                manager.getNavigationHelper().goToDashboard();
                 assertVisibility(logOutButton, "Log out button doesn't display");
                 isStringsEquals(PageTitle.DASHBOARD.getTitleValue(), getPageTitle(),
                         "Wrong Trainee Dashboard pages title");
@@ -100,13 +149,56 @@ public class LoginPage extends BaseHelper implements LoginDataProviders {
                 break;
             case MANAGER:
                 waitElementPresent(By.xpath(LOG_OUT_BUTTON));
-                manager.getNavigationHelper().goToDashboard();
                 assertVisibility(logOutButton, "Log out button doesn't display");
                 isStringsEquals(PageTitle.DASHBOARD.getTitleValue(), getPageTitle(),
                         "Wrong Trainee Dashboard pages title");
                 reporterLog("Successfully login as: " + role);
                 break;
         }
+    }
+
+    /**
+            * Input credentials for login
+    * @param login login field TextInput
+    * @param log login
+    * @param password password field TextInput
+    * @param pass password
+    * @param loginButton Button
+    **/
+    protected void inputLoginCredentials(TextInput login, String log, TextInput password, String pass,
+                                         Button loginButton) {
+        if (getBrowser().equals(BROWSER_SAFARI)) {
+            waitElementDuringSendKeys(log, login);
+            waitElementDuringSendKeys(pass, password);
+            clickOnButton(loginButton);
+        } else {
+            inputText(login, log);
+            inputText(password, pass);
+            clickOnButton(loginButton);
+        }
+        reporterLog("Input login credentials: " + log + "/" + password);
+    }
+
+    protected void checkTraineeLoginForm() {
+        if (isElementVisible(By.xpath(alreadyHavePasswordLink)) && getElementText(By.xpath(alreadyHavePasswordLink))
+                .equals("First time here? Need a password?")) {
+        } else {
+            clickOnButton(By.xpath(firstTimeHereLink));
+            isStringsEquals("First time here? Need a password?", getElementText(By.xpath(alreadyHavePasswordLink)),
+                    "Doesn't switch on trainee login");
+        }
+        reporterLog("Check Trainee login form");
+    }
+
+    protected void checkTraineeFirstLoginForm() {
+        if (isElementVisible(By.xpath(firstTimeHereLink)) && getElementText(By.xpath(firstTimeHereLink))
+                .equals("Already have a password?")) {
+        } else {
+            clickOnButton(By.xpath(alreadyHavePasswordLink));
+            isStringsEquals("Already have a password?", getElementText(By.xpath(firstTimeHereLink)),
+                    "Doesn't switch on trainee first login form");
+        }
+        reporterLog("Check Trainee first login form");
     }
 
     /**

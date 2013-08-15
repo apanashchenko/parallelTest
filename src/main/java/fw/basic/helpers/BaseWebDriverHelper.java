@@ -2,7 +2,6 @@ package fw.basic.helpers;
 
 import fw.basic.ApplicationManager;
 import fw.basic.data.BaseDataProvider;
-import fw.basic.data.WebDriverBaseDataProviders;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -11,11 +10,13 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 import org.testng.Reporter;
+import pages.staticdata.PageTitle;
 import ru.yandex.qatools.htmlelements.element.*;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertFalse;
@@ -32,17 +33,17 @@ import static org.testng.Assert.assertTrue;
 /**
  * Parent class for general methods with WebDriver and HTML Elements.
  */
-public class BaseWebDriverHelper implements WebDriverBaseDataProviders, BaseDataProvider {
+public abstract class BaseWebDriverHelper implements BaseDataProvider {
 
     protected ApplicationManager manager;
     private WebDriver driver;
     private org.slf4j.Logger LOG = LoggerFactory.getLogger(BaseWebDriverHelper.class);
+    private Random rnd = new Random();
 
     public BaseWebDriverHelper(ApplicationManager manager) {
         this.manager = manager;
         driver = manager.getWebDriverHelper().getDriver();
         PageFactory.initElements(new HtmlElementDecorator(driver), this);
-        System.out.println("!!!!!!!!!!!!!!!!!!BaseWebDriverHelper " + Thread.currentThread().getId());
     }
 
     /**
@@ -997,5 +998,16 @@ public class BaseWebDriverHelper implements WebDriverBaseDataProviders, BaseData
     public String getTimePageLoad() {
         String time = ((JavascriptExecutor) getDriver()).executeScript("return ( window.performance.timing.loadEventEnd - window.performance.timing.navigationStart )").toString();
         return time;
+    }
+
+    protected void assertPageTitle(PageTitle expectedPageTitle) {
+        String titleValue = expectedPageTitle.getTitleValue();
+        String currentTitle = getPageTitle();
+        isStringsEquals(titleValue, currentTitle, "Should be on page " + titleValue +
+                " but I am actually on page " + currentTitle);
+    }
+
+    protected Random getRandom() {
+        return rnd;
     }
 }

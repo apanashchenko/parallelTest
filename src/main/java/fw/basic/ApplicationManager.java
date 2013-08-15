@@ -2,8 +2,6 @@ package fw.basic;
 
 import fw.basic.data.BaseDataProvider;
 import fw.basic.data.properties.EnvironmentProperties;
-import fw.basic.helpers.NavigationHelper;
-import fw.basic.helpers.NavigationHelper2;
 import fw.basic.helpers.WebDriverHelper;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
@@ -36,8 +34,6 @@ public class ApplicationManager {
     private org.slf4j.Logger LOG = LoggerFactory.getLogger(ApplicationManager.class);
     private WebDriverHelper webDriverHelper;
     private LoginHelper loginHelper;
-    private NavigationHelper navigationHelper;
-    private NavigationHelper2 navigationHelper2;
     private LoginHelper2 loginHelper2;
 
     public static ThreadLocal<ApplicationManager> getThreadAppManager() {
@@ -96,23 +92,9 @@ public class ApplicationManager {
         return loginHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
-        if(navigationHelper == null){
-            navigationHelper = new NavigationHelper();
-        }
-        return navigationHelper;
-    }
-
-    public NavigationHelper2 getNavigationHelper2() {
-        if(navigationHelper2 == null){
-            navigationHelper2 = new NavigationHelper2();
-        }
-        return navigationHelper2;
-    }
-
     public LoginHelper2 getLoginHelper2() {
         if(loginHelper2 == null){
-            loginHelper2 = new LoginHelper2();
+            loginHelper2= new LoginHelper2();
         }
         return loginHelper2;
     }

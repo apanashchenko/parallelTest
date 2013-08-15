@@ -22,31 +22,50 @@ import org.testng.annotations.BeforeTest;
  */
 public class TestBase implements BaseDataProvider {
 
+    private org.slf4j.Logger LOG = LoggerFactory.getLogger(TestBase.class);
     protected ApplicationManager app;
     protected static String browser;
-    private static org.slf4j.Logger LOG = LoggerFactory.getLogger(TestBase.class);
-    protected static String serverSite = ApplicationManager.getServerSite();
+    protected static String serverSite;
 
     /**
      * Set up before test
      */
     @BeforeTest
     public void setUpBeforeTest(ITestContext iTestContext) {
+        crateAppManagerInstance(iTestContext);
+        deleteBrowserCookies();
+        outputBrowserInfo();
+    }
+
+    /**
+     * Set up after test
+     */
+    @AfterTest
+    public void tearDown() {
+        stropCurrentBrowser();
+    }
+
+    private void crateAppManagerInstance(ITestContext iTestContext) {
         app = new ApplicationManager();
-        //set instance to Thread
         app.getThreadAppManager().set(app);
         app.setUpProperties();
         iTestContext.setAttribute("application", app);
-        LOG.info("Read system properties before suite");;
         app = ApplicationManager.getInstance();
         browser = app.getBrowserType();
         serverSite = app.getServerSite();
-        String webDriverVersion = System.getProperty("webdriver.driver");
-        String saucelabsLogin = app.getSaucelabsLogin();
+        LOG.info("Crate AppManager instance");
+    }
+
+    private void deleteBrowserCookies() {
         app.getWebDriverHelper().deleteAllCookies();
         app.getWebDriverHelper().openUrl(serverSite);
         app.getWebDriverHelper().refresh();
         LOG.info("Complete delete cookies before test");
+    }
+
+    private void outputBrowserInfo() {
+        String webDriverVersion = System.getProperty("webdriver.driver");
+        String saucelabsLogin = app.getSaucelabsLogin();
         Reporter.log("<b style=\"color:#87CEFA\"> WebDriver version: " + webDriverVersion + "</b><br/>");
         Reporter.log("<b style=\"color:#1E90FF\"> Browser: " + browser + "</b><br/>");
         Reporter.log("<b style=\"color:#1E90FF\"> Site: " + serverSite + "</b><br/>");
@@ -56,11 +75,7 @@ public class TestBase implements BaseDataProvider {
         LOG.info("Complete set up before test");
     }
 
-    /**
-     * Set up after test
-     */
-    @AfterTest
-    public void tearDown() {
+    private void stropCurrentBrowser() {
         app.getThreadAppManager().get().getWebDriverHelper().stop();
         LOG.info("Stopped tests");
     }

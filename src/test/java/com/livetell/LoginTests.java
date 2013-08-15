@@ -14,8 +14,7 @@ public class LoginTests extends TestBase {
 
     @Test(enabled = true)
     public void Login_without_credentials() {
-        app.getNavigationHelper()
-                .goToLoginPage()
+        app.getLoginHelper()
                 .inputTraineeLoginCredentials("", "")
                 .errorPleaseEnterYourRecruitId()
                 .errorPasswordFieldIsRequired();
@@ -23,16 +22,14 @@ public class LoginTests extends TestBase {
 
     @Test(enabled = true)
     public void Input_recruit_ID_less_9_number() {
-        app.getNavigationHelper()
-                .goToLoginPage()
+        app.getLoginHelper()
                 .inputTraineeLoginCredentials("34534656", "1435")
                 .errorPleaseEnterAtLeast9Characters();
     }
 
     @Test(enabled = true)
     public void Input_letters_in_recruit_ID_field() {
-        app.getNavigationHelper()
-                .goToLoginPage()
+        app.getLoginHelper()
                 .inputTraineeLoginCredentials("fgdfgdfg", "1435")
                 .errorPleaseEnterOnlyDigits();
     }
