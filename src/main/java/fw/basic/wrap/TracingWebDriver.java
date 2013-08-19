@@ -1,6 +1,7 @@
 package fw.basic.wrap;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.BuildInfo;
 import org.openqa.selenium.internal.Locatable;

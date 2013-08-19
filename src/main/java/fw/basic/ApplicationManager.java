@@ -23,7 +23,7 @@ import java.text.ParseException;
  **/
 public class ApplicationManager {
 
-    private static final String defaultBrowser = "CHROME";
+    private static final String defaultBrowser = "FIREFOX";
     private static final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
     private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
     private static String browserType;

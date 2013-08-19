@@ -22,27 +22,32 @@ import org.testng.annotations.BeforeTest;
  */
 public class TestBase implements BaseDataProvider {
 
-    private org.slf4j.Logger LOG = LoggerFactory.getLogger(TestBase.class);
+    protected String browser;
+    protected String defaultServer;
     protected ApplicationManager app;
-    protected static String browser;
-    protected static String serverSite;
+    private org.slf4j.Logger LOG = LoggerFactory.getLogger(TestBase.class);
+    private String webDriverVersion;
+    private String saucelabsLogin;
+
 
     /**
-     * Set up before test
+     * Read properties  and start WebDriver instance before test
      */
     @BeforeTest
     public void setUpBeforeTest(ITestContext iTestContext) {
         crateAppManagerInstance(iTestContext);
         deleteBrowserCookies();
         outputBrowserInfo();
+        LOG.info("Suite name: " + iTestContext.getCurrentXmlTest().getSuite().getName());
+        LOG.info("Test name: " + iTestContext.getCurrentXmlTest().getName());
     }
 
     /**
-     * Set up after test
+     * Stop current WebDriver instance after test
      */
     @AfterTest
     public void tearDown() {
-        stropCurrentBrowser();
+        stopCurrentBrowser();
     }
 
     private void crateAppManagerInstance(ITestContext iTestContext) {
@@ -52,30 +57,30 @@ public class TestBase implements BaseDataProvider {
         iTestContext.setAttribute("application", app);
         app = ApplicationManager.getInstance();
         browser = app.getBrowserType();
-        serverSite = app.getServerSite();
+        defaultServer = app.getServerSite();
+        webDriverVersion = System.getProperty("webdriver.driver");
+        saucelabsLogin = app.getSaucelabsLogin();
         LOG.info("Crate AppManager instance");
     }
 
     private void deleteBrowserCookies() {
         app.getWebDriverHelper().deleteAllCookies();
-        app.getWebDriverHelper().openUrl(serverSite);
+        app.getWebDriverHelper().openUrl(defaultServer);
         app.getWebDriverHelper().refresh();
         LOG.info("Complete delete cookies before test");
     }
 
     private void outputBrowserInfo() {
-        String webDriverVersion = System.getProperty("webdriver.driver");
-        String saucelabsLogin = app.getSaucelabsLogin();
         Reporter.log("<b style=\"color:#87CEFA\"> WebDriver version: " + webDriverVersion + "</b><br/>");
         Reporter.log("<b style=\"color:#1E90FF\"> Browser: " + browser + "</b><br/>");
-        Reporter.log("<b style=\"color:#1E90FF\"> Site: " + serverSite + "</b><br/>");
+        Reporter.log("<b style=\"color:#1E90FF\"> Site: " + defaultServer + "</b><br/>");
         if (saucelabsLogin != null) {
-            Reporter.log("<b style=\"color:#1E90FF\"> SouceLabs Login: " + saucelabsLogin + "</b><br/>");
+            Reporter.log("<b style=\"color:#1E90FF\"> Soucelabs Login: " + saucelabsLogin + "</b><br/>");
         }
         LOG.info("Complete set up before test");
     }
 
-    private void stropCurrentBrowser() {
+    private void stopCurrentBrowser() {
         app.getThreadAppManager().get().getWebDriverHelper().stop();
         LOG.info("Stopped tests");
     }

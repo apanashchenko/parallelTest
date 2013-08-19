@@ -33,7 +33,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Parent class for general methods with WebDriver and HTML Elements.
  */
-public abstract class BaseWebDriverHelper implements BaseDataProvider {
+public class BaseWebDriverHelper implements BaseDataProvider {
 
     protected ApplicationManager manager;
     private WebDriver driver;

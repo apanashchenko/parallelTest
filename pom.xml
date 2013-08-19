@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>LiveTell</groupId>
-    <artifactId>LiveTellTests</artifactId>
+    <groupId>ParallelTest</groupId>
+    <artifactId>ParallelTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>Basic framework for automation tests</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <webdriver.driver.version>2.34.0</webdriver.driver.version>
+        <webdriver.driver.version>2.35.0</webdriver.driver.version>
     </properties>
     <!--Basic test project structure-->
     <build>

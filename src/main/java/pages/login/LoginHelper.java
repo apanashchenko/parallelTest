@@ -27,7 +27,6 @@ public class LoginHelper extends BaseWebDriverHelper implements LoginDataProvide
         if (loginPage == null) {
             return new LoginPage();
         }
-        openUrl(ApplicationManager.getServerSite() + "/login/signin.htm");
         return loginPage;
     }
 
