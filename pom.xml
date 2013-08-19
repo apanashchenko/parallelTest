@@ -17,8 +17,8 @@
     <build>
         <resources>
             <resource>
-                <targetPath>${basedir}/bin</targetPath>
-                <directory>${basedir}/src</directory>
+                <targetPath>${project.basedir}/bin</targetPath>
+                <directory>${project.basedir}/src</directory>
                 <filtering>false</filtering>
                 <includes>
                     <include>logback-test.xml</include>
@@ -40,7 +40,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12.3</version>
                 <configuration>
-                   <!-- <reportsDirectory>${basedir}/report</reportsDirectory>--> <!--change report directory-->
+                   <!-- <reportsDirectory>${project.basedir}/report</reportsDirectory>--> <!--change report directory-->
                     <systemPropertyVariables>
                         <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                         <!--<org.uncommons.reportng.velocity-log>true</org.uncommons.reportng.velocity-log>-->
@@ -69,7 +69,7 @@
                         <webdriver.driver>${webdriver.driver.version}</webdriver.driver>
                     </systemPropertyVariables>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${basedir}/src/test/resources/${suite}.xml</suiteXmlFile>
+                        <suiteXmlFile>${project.basedir}/src/test/resources/mainSuite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
@@ -194,7 +194,7 @@
             <artifactId>ojdbc</artifactId>
             <version>14</version>
             <scope>system</scope>
-            <systemPath>${basedir}/libs/ojdbc6.jar</systemPath>
+            <systemPath>${project.basedir}/libs/ojdbc6.jar</systemPath>
         </dependency>
 
         <!--Libs for nice test report-->
@@ -203,7 +203,7 @@
             <artifactId>reportng</artifactId>
             <version>1.1.4</version>
             <scope>system</scope>
-            <systemPath>${basedir}/libs/reportng-1.1.4_patch.jar</systemPath>
+            <systemPath>${project.basedir}/libs/reportng-1.1.4_patch.jar</systemPath>
             <exclusions>
                 <exclusion>
                     <groupId>org.testng</groupId>
