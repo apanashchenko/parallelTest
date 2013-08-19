@@ -102,7 +102,6 @@ public class WebDriverHelper implements BaseDataProvider {
         ((CustomEventFiringWebDriver) driver).register(new ActionListener(driver));
         ApplicationManager.getInstance().setBrowserInfo(getBrowserInfo());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.manage().window().getSize();
 //        driver.manage().window().maximize();
         driver.get(ApplicationManager.getServerSite());
     }
@@ -113,7 +112,6 @@ public class WebDriverHelper implements BaseDataProvider {
         driver = new CustomEventFiringWebDriver(new TracingWebDriver(new ChromeDriver(capabilChrome)));
         ((CustomEventFiringWebDriver) driver).register(new ActionListener(driver));
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        driver.manage().window().getSize();
 //        driver.manage().window().maximize();
         ApplicationManager.getInstance().setBrowserInfo(getBrowserInfo());
         driver.get(ApplicationManager.getServerSite());
@@ -146,6 +144,7 @@ public class WebDriverHelper implements BaseDataProvider {
         //((EventFiringWebDriver) driver).register(new ActionListener(driver));
         ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
         ApplicationManager.getInstance().setBrowserInfo(getBrowserInfo());
         driver.get(ApplicationManager.getServerSite());
     }

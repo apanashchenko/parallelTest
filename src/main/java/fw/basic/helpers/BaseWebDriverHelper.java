@@ -1010,4 +1010,20 @@ public class BaseWebDriverHelper implements BaseDataProvider {
     protected Random getRandom() {
         return rnd;
     }
+
+    /**
+     * @param locator element locator
+     * @param messageText error message text
+     * */
+    public void checkErrorMessage(By locator, String messageText) {
+        waitABit(2);
+        waitElementPresent(locator);
+        if (getBrowser().equals(BROWSER_INTERNET_EXPLORER)) {
+        }
+        waitABit(2);
+        String actualMessageText =  getElementText(locator);
+        isStringContains(messageText, actualMessageText, "Incorrect message text, expect: " + messageText
+                + ", but found: " + actualMessageText);
+        reporterLog("Show error message: " + messageText);
+    }
 }

@@ -4,12 +4,8 @@ import fw.basic.data.BaseDataProvider;
 import fw.basic.data.properties.EnvironmentProperties;
 import fw.basic.helpers.WebDriverHelper;
 import org.slf4j.LoggerFactory;
-import org.testng.ITestResult;
 import pages.login.LoginHelper;
-import pages.login2.LoginHelper2;
-
-import java.io.IOException;
-import java.text.ParseException;
+import pages.vectorConnect.VectorConnectHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,8 +19,8 @@ import java.text.ParseException;
  **/
 public class ApplicationManager {
 
-    private static final String defaultBrowser = "FIREFOX";
-    private static final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
+    private final String defaultBrowser = "FIREFOX";
+    private  final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
     private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
     private static String browserType;
     private static String serverSite;
@@ -34,7 +30,7 @@ public class ApplicationManager {
     private org.slf4j.Logger LOG = LoggerFactory.getLogger(ApplicationManager.class);
     private WebDriverHelper webDriverHelper;
     private LoginHelper loginHelper;
-    private LoginHelper2 loginHelper2;
+    private VectorConnectHelper vectorConnectHelper;
 
     public static ThreadLocal<ApplicationManager> getThreadAppManager() {
         return applicationManager;
@@ -57,25 +53,7 @@ public class ApplicationManager {
      * Create instance of ApplicationManager
      **/
     public static ApplicationManager getInstance() {
-        System.out.println("!!!!!!!!!!!!!!!!!!ApplicationManager getInstance " + Thread.currentThread().getId());
         return applicationManager.get();
-    }
-
-    /**
-     * Stop WebDriver and kill instance of ApplicationManager
-     **/
-    public void stop() {
-        if (webDriverHelper != null) {
-            webDriverHelper.stop();
-        }
-        if (applicationManager != null) {
-            applicationManager = null;
-        }
-        System.out.println("!!!!!!!!!!!!!!!!!!!stop" + Thread.currentThread().getId());
-    }
-
-    public  void getScreenshot(ITestResult result) throws IOException, ParseException {
-        webDriverHelper.getScreenshot(result);
     }
 
     public WebDriverHelper getWebDriverHelper() {
@@ -92,11 +70,11 @@ public class ApplicationManager {
         return loginHelper;
     }
 
-    public LoginHelper2 getLoginHelper2() {
-        if(loginHelper2 == null){
-            loginHelper2= new LoginHelper2();
+    public VectorConnectHelper getVectorConnectHelper() {
+        if(vectorConnectHelper == null){
+            vectorConnectHelper = new VectorConnectHelper();
         }
-        return loginHelper2;
+        return vectorConnectHelper;
     }
 
     public static String getBrowserType() {

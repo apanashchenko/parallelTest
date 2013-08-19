@@ -10,18 +10,8 @@ package fw.basic.data.properties;
 public enum BrowserTypes {
 
     FIREFOX,
-    FIREFOX_PROFILE,
-    FIREFOX_PC,
-    FIREFOX_SAUCELABS,
     CHROME,
-    CHROME_OPTIONAL,
     CHROME_SAUCELABS,
     IE,
-    IE_SAUCELABS,
-    PHANTOM,
-    OPERA,
-    OPERA_SAUCELABS,
-    SFAFRI,
-    SAFARI_SAUCELABS;
-
+    ;
 }

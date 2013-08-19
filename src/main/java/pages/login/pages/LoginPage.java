@@ -46,23 +46,11 @@ public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders
     @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + LOGIN_BUTTON)
     private Button traineeLoginButton;
 
-    @FindBy(xpath = VECTOR_CONNECT_BUTTON)
-    private Button vectorConnectButton;
-
     @FindBy(xpath = SUBMIT_BUTTON)
     private Button submit;
 
     @FindBy(xpath = FORGOT_PASSWORD_LINK)
     private Button forgotPassword;
-
-    @FindBy(id = REP_NUMBER_FIELD)
-    private TextInput repNumber;
-
-    @FindBy(id = VECTOR_CONNECT_PASSWORD)
-    protected TextInput vectorConnectPassword;
-
-    @FindBy(xpath = ACTIVE_LOGIN_FORM + LOGIN_BUTTON)
-    private Button repLoginButton;
 
     @FindBy(xpath = LOG_OUT_BUTTON)
     private Button logOutButton;
@@ -199,23 +187,6 @@ public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders
                     "Doesn't switch on trainee first login form");
         }
         reporterLog("Check Trainee first login form");
-    }
-
-    /**
-     * @param locator element locator
-     * @param messageText error message text
-     * */
-    public void checkErrorMessage(By locator, String messageText) {
-        waitElementPresent(locator);
-        implicitlyWait(10);
-        if (getBrowser().equals(BROWSER_INTERNET_EXPLORER)) {
-            implicitlyWait(10);
-        }
-        implicitlyWait(10);
-        String actualMessageText =  getElementText(locator);
-        isStringContains(messageText, actualMessageText, "Incorrect message text, expect: " + messageText
-                + ", but found: " + actualMessageText);
-        reporterLog("Show error message: " + messageText);
     }
 
     /**

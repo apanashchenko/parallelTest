@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  * Time: 14:01
  * To change this template use File | Settings | File Templates.
  */
-public class LoginTests extends TestBase {
+public class TraineeLoginTests extends TestBase {
 
     @Test(enabled = true)
     public void Login_without_credentials() {

@@ -9,9 +9,9 @@ package pages.login.data;
  */
 public interface LoginDataProviders {
 
-    String ERROR_PASSWORD_FIELD = "//label[@class='error'][@for='trainee-login-name']";
-    String ERROR_RECRUIT_ID_FIELD = "//label[@class='error'][@for='trainee-login-id']";
     String ALREADY_HAVE_PASSWORD = "Already have a password?";
     String FIRST_TIME_HERE = "First time here? Need a password?";
+    String ERROR_PASSWORD_FIELD = "//label[@class='error'][@for='trainee-login-name']";
+    String ERROR_RECRUIT_ID_FIELD = "//label[@class='error'][@for='trainee-login-id']";
 
 }
