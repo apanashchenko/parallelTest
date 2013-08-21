@@ -18,14 +18,15 @@ import ru.yandex.qatools.htmlelements.element.TextInput;
  */
 public class VectorConnectPage extends BaseWebDriverHelper implements VectorConnectData {
 
-    private final String US_COUNTRY = "US";
-    private final String CANADA_COUNTRY = "Canada";
+    private final String LOGIN_PAGE = "/login/signin.htm";
+    private final String US = "US";
+    private final String CANADA = "Canada";
 
     /**Page WebElements**/
-    @FindBy(xpath = COUNTRY_SWITCHER + US)
+    @FindBy(xpath = CANADA_COUNTRY)
     private Button canada;
 
-    @FindBy(xpath = COUNTRY_SWITCHER + CANADA)
+    @FindBy(xpath = US_COUNTRY)
     private Button us;
 
     @FindBy(xpath = VECTOR_CONNECT_BUTTON)
@@ -43,11 +44,28 @@ public class VectorConnectPage extends BaseWebDriverHelper implements VectorConn
     @FindBy(id = VECTOR_CONNECT_PASSWORD)
     private TextInput vectorConnectPassword;
 
-    @FindBy(xpath = ACTIVE_LOGIN_FORM + LOGIN_BUTTON)
+    @FindBy(xpath = REP_LOGIN_BUTTON)
     private Button repLoginButton;
 
     public VectorConnectPage() {
         super(ApplicationManager.getInstance());
+    }
+
+    public void goToVectorConnectPage() {
+        String defaultServer = ApplicationManager.getServerSite();
+        if (getCurrentUrl().equals(defaultServer + LOGIN_PAGE)) {
+            if (getBrowser().equals(BROWSER_SAFARI)) {
+                openUrl(defaultServer + LOGIN_PAGE);
+            }
+            clickOnVectorConnectButton();
+            reporterLog("VectorConnect is current page");
+            checkVectorConnectPage();
+        } else {
+            openUrl(defaultServer + LOGIN_PAGE);
+            clickOnVectorConnectButton();
+            reporterLog("Go to VectorConnect page");
+            checkVectorConnectPage();
+        }
     }
 
     /** Verify VectorConnect pages. */
@@ -65,13 +83,13 @@ public class VectorConnectPage extends BaseWebDriverHelper implements VectorConn
      * @param country profile country (US, Canada)
      */
     public void switchCountry(String country) {
-        if (country.equals(US_COUNTRY)) {
+        if (country.equals(US)) {
             if (getSelectedCountry().equals(country)) {
                 reporterLog(country + " country is selected");
             } else {
                 clickOnButton(us);
             }
-        } else if (country.equals(CANADA_COUNTRY)) {
+        } else if (country.equals(CANADA)) {
             if (getSelectedCountry().equals(country)) {
                 reporterLog(country + " country is selected");
             } else {

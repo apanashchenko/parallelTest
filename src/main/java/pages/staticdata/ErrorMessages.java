@@ -15,8 +15,6 @@ public enum ErrorMessages {
     ENTER_YOUR_REP_NUMBER("Please enter your Rep Number."),
     ENTER_AT_LEAST_9_CHARACTERS("Please enter at least 9 characters."),
     ENTER_ONLY_DIGITS("Please enter only digits."),
-    ENTER_THE_FIRST_3_LETTERS_OF_LAST_NAME("Please enter the first 3 letters of your last name."),
-    LOGIN_WITH_RECRUIT_ID_AND_PASSWORD("You already have a password. Please login with your recruitId and your password."),
     ;
 
     private String messageText;

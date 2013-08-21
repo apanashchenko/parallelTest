@@ -33,7 +33,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Parent class for general methods with WebDriver and HTML Elements.
  */
-public class BaseWebDriverHelper implements BaseDataProvider {
+public abstract class BaseWebDriverHelper implements BaseDataProvider {
 
     protected ApplicationManager manager;
     private WebDriver driver;
@@ -48,7 +48,6 @@ public class BaseWebDriverHelper implements BaseDataProvider {
 
     /**
      * Get WebDriver instance
-     *
      * @return current WebDriver instance
      */
     protected WebDriver getDriver() {
@@ -57,7 +56,6 @@ public class BaseWebDriverHelper implements BaseDataProvider {
 
     /**
      * Check visibility of element
-     *
      * @param locator element locator
      * @return boolean
      */
@@ -74,7 +72,6 @@ public class BaseWebDriverHelper implements BaseDataProvider {
 
     /**
      * Check visibility of element
-     *
      * @param element element
      * @return boolean
      */
@@ -91,7 +88,6 @@ public class BaseWebDriverHelper implements BaseDataProvider {
 
     /**
      * Check visibility of element
-     *
      * @param textInput TextInput element
      * @return boolean
      */
@@ -108,7 +104,6 @@ public class BaseWebDriverHelper implements BaseDataProvider {
 
     /**
      * Check visibility of element
-     *
      * @param button Button element
      * @return boolean
      */

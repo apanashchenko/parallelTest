@@ -7,7 +7,8 @@ package fw.basic.data;
  * Time: 20:17
  * To change this template use File | Settings | File Templates.
  */
-public interface BaseDataProvider {
+public abstract interface BaseDataProvider {
+
     String STAGE_LIVETELL_NET = "stage.livetell.net";
     String envPropertiesFile = "src/test/resources/properties/env.properties";
     String BROWSER_SAFARI = "safari";
@@ -24,7 +25,7 @@ public interface BaseDataProvider {
     String ACTIVE_LOGIN_FORM = "//div[@class='login_form']";
     String LOGIN_BUTTON = "//input[@value='Login']";
     String TRAINEE_RECRUIT_ID_FIELD = "//input[@id='trainee-login-id']";
-    String TRAINEE_PASSWORD_FIELD = "//input[@id='trainee-login-name']";
+    String TRAINEE_LOGIN_NAME_FIELD = "//input[@id='trainee-login-name']";
     String FORGOT_PASSWORD_LINK = "//p[@class='text-center']/a";
     String REP_NUMBER_FIELD = "rep-number";
     String VECTOR_CONNECT_PASSWORD = "vectorconnect-password";

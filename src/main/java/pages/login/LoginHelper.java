@@ -1,6 +1,7 @@
 package pages.login;
 
 import fw.basic.ApplicationManager;
+import fw.basic.data.BaseDataProvider;
 import fw.basic.helpers.BaseWebDriverHelper;
 import org.openqa.selenium.By;
 import pages.login.data.LoginDataProviders;
@@ -15,13 +16,9 @@ import pages.staticdata.ErrorMessages;
  * Time: 21:33
  * To change this template use File | Settings | File Templates.
  */
-public class LoginHelper extends BaseWebDriverHelper implements LoginDataProviders {
+public class LoginHelper implements LoginDataProviders {
 
     private LoginPage loginPage;
-
-    public LoginHelper() {
-        super(ApplicationManager.getInstance());
-    }
 
     private LoginPage onLoginPage() {
         if (loginPage == null) {
@@ -32,22 +29,6 @@ public class LoginHelper extends BaseWebDriverHelper implements LoginDataProvide
 
     public LoginHelper checkLoginPage() {
         onLoginPage().checkLoginPage();
-        return this;
-    }
-
-    public LoginHelper selectRole(Role role) {
-        onLoginPage().selectRole(role);
-        return this;
-    }
-
-    public LoginHelper assertThatUserWithSelectRoleLogin(Role role) {
-        onLoginPage().assertThatUserWithSelectRoleLogin(role);
-        return this;
-    }
-
-    public LoginHelper errorThatUserNameOrPasswordDidNotMatchRecords() {
-        onLoginPage().checkErrorMessage(By.xpath(SERVER_ERROR_MESSAGE),
-                ErrorMessages.INCORRECT_USER_NAME_OR_PASSWORD.getMessageText());
         return this;
     }
 
@@ -75,25 +56,8 @@ public class LoginHelper extends BaseWebDriverHelper implements LoginDataProvide
         return this;
     }
 
-    public LoginHelper errorPleaseEnterFirst3LettersOfYourLastName() {
-        onLoginPage().checkErrorMessage(By.xpath(TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + ERROR_PASSWORD_FIELD),
-                ErrorMessages.ENTER_THE_FIRST_3_LETTERS_OF_LAST_NAME.getMessageText());
-        return this;
-    }
-
-    public LoginHelper inputTraineeFirstLoginCredentials(String log, String pass) {
-        onLoginPage().inputTraineeFirstLoginCredentials(log, pass);
-        return this;
-    }
-
     public LoginHelper inputTraineeLoginCredentials(String log, String pass) {
         onLoginPage().inputTraineeCredentials(log, pass);
-        return this;
-    }
-
-    public LoginHelper errorLoginWithRecruitIdAndPassword() {
-        onLoginPage().checkErrorMessage(By.xpath(SERVER_ERROR_MESSAGE),
-                ErrorMessages.LOGIN_WITH_RECRUIT_ID_AND_PASSWORD.getMessageText());
         return this;
     }
 }

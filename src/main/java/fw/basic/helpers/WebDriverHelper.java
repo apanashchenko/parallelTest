@@ -130,7 +130,7 @@ public class WebDriverHelper implements BaseDataProvider {
     private void initChromeSaucelabs() {
         DesiredCapabilities capabilChrome = DesiredCapabilities.chrome();
         capabilChrome.setCapability("nativeEvents", true);
-        capabilChrome.setCapability("selenium-version", "2.34.0");
+        capabilChrome.setCapability("selenium-version", "2.35.0");
         capabilChrome.setCapability("platform", "Windows 7");
         capabilChrome.setCapability("name", "Chrome tests");
         capabilChrome.setCapability("screen-resolution", "1280x1024");
@@ -141,7 +141,6 @@ public class WebDriverHelper implements BaseDataProvider {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        //((EventFiringWebDriver) driver).register(new ActionListener(driver));
         ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();

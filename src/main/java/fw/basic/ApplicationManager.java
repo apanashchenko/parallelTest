@@ -20,7 +20,7 @@ import pages.vectorConnect.VectorConnectHelper;
 public class ApplicationManager {
 
     private final String defaultBrowser = "FIREFOX";
-    private  final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
+    private final String defaultSite = EnvironmentProperties.getProperty(BaseDataProvider.STAGE_LIVETELL_NET);
     private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
     private static String browserType;
     private static String serverSite;

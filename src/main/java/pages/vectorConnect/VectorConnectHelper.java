@@ -1,7 +1,6 @@
 package pages.vectorConnect;
 
-import fw.basic.ApplicationManager;
-import fw.basic.helpers.BaseWebDriverHelper;
+import fw.basic.data.BaseDataProvider;
 import org.openqa.selenium.By;
 import pages.staticdata.ErrorMessages;
 import pages.vectorConnect.data.VectorConnectData;
@@ -14,32 +13,13 @@ import pages.vectorConnect.pages.VectorConnectPage;
  * Time: 18:06
  * To change this template use File | Settings | File Templates.
  */
-public class VectorConnectHelper extends BaseWebDriverHelper implements VectorConnectData {
+public class VectorConnectHelper implements VectorConnectData {
 
-    private final String LOGIN_PAGE = "/login/signin.htm";
     private VectorConnectPage vectorConnectPage;
 
-    public VectorConnectHelper() {
-        super(ApplicationManager.getInstance());
-    }
-
     public VectorConnectHelper goToVectorConnectPage() {
-        String defaultServer = ApplicationManager.getServerSite();
-        if (getCurrentUrl().equals(defaultServer + LOGIN_PAGE)) {
-            if (getBrowser().equals(BROWSER_SAFARI)) {
-                openUrl(defaultServer + LOGIN_PAGE);
-            }
-            onVectorConnectPage().clickOnVectorConnectButton();
-            reporterLog("VectorConnect is current page");
-            checkVectorConnectPage();
-            return new VectorConnectHelper();
-        } else {
-            openUrl(defaultServer + LOGIN_PAGE);
-            onVectorConnectPage().clickOnVectorConnectButton();
-            reporterLog("Go to VectorConnect page");
-            checkVectorConnectPage();
-            return new VectorConnectHelper();
-        }
+        onVectorConnectPage().goToVectorConnectPage();
+        return new VectorConnectHelper();
     }
 
     private VectorConnectPage onVectorConnectPage() {
@@ -82,4 +62,5 @@ public class VectorConnectHelper extends BaseWebDriverHelper implements VectorCo
 
         return this;
     }
+
 }

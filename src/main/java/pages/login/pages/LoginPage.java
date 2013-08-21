@@ -3,13 +3,11 @@ package pages.login.pages;
 import fw.basic.ApplicationManager;
 import fw.basic.helpers.BaseWebDriverHelper;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import pages.login.data.LoginDataProviders;
 import pages.login.data.Role;
 import pages.staticdata.PageTitle;
 import ru.yandex.qatools.htmlelements.element.Button;
-import ru.yandex.qatools.htmlelements.element.Link;
 import ru.yandex.qatools.htmlelements.element.TextInput;
 
 /**
@@ -21,54 +19,21 @@ import ru.yandex.qatools.htmlelements.element.TextInput;
  */
 public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders {
 
-    private String firstTimeHereLink = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_P + ROLE_SWITCHER_LINK;
-    private String alreadyHavePasswordLink = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_P + ROLE_SWITCHER_LINK;
-
     /**Page WebElements**/
-    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_RECRUIT_ID_FIELD)
-    private TextInput traineeFirstLoginRecruitIDField;
-
-    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_PASSWORD_FIELD)
-    private TextInput traineeFirstLoginPasswordField;
-
-    @FindBy(xpath = TRAINEE_FIRS_LOGIN_FORM + FOLLOWING_SIBLING_DIV + LOGIN_BUTTON)
-    private Button traineeFirstLoginButton;
-
     @FindBy(xpath = ROLE_SWITCHER_LINK)
     private Button switchRoleLink;
 
-    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_RECRUIT_ID_FIELD)
+    @FindBy(xpath = RECRUIT_ID_FIELD)
     private TextInput traineeRecruitIDField;
 
-    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + TRAINEE_PASSWORD_FIELD)
+    @FindBy(xpath = TRAINEE_PASSWORD_FIELD)
     private TextInput traineePasswordField;
 
-    @FindBy(xpath = TRAINEE_LOGIN_FORM + FOLLOWING_SIBLING_DIV + LOGIN_BUTTON)
+    @FindBy(xpath = TRAINEE_LOGIN_BUTTON)
     private Button traineeLoginButton;
-
-    @FindBy(xpath = SUBMIT_BUTTON)
-    private Button submit;
-
-    @FindBy(xpath = FORGOT_PASSWORD_LINK)
-    private Button forgotPassword;
 
     @FindBy(xpath = LOG_OUT_BUTTON)
     private Button logOutButton;
-
-    @FindBy(xpath = "//a[@href='/webapp/profile/setup.htm']")
-    private Link setupProfileLink;
-
-    @FindBy(xpath = "//a[@href='/webapp/profile/verify.htm']")
-    private Link verifyInfoLink;
-
-    @FindBy(xpath = "//a[@href='/webapp/profile/uploadPhoto.htm']")
-    private Button uploadProfilePhoto;
-
-    @FindBy(id = "trainee_change_password")
-    private WebElement traineeChangePassword;
-
-    @FindBy(id = "password")
-    private TextInput newPassword;
 
     public LoginPage() {
         super(ApplicationManager.getInstance());
@@ -146,7 +111,7 @@ public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders
     }
 
     /**
-            * Input credentials for login
+     * Input credentials for login
     * @param login login field TextInput
     * @param log login
     * @param password password field TextInput
@@ -187,17 +152,6 @@ public class LoginPage extends BaseWebDriverHelper implements LoginDataProviders
                     "Doesn't switch on trainee first login form");
         }
         reporterLog("Check Trainee first login form");
-    }
-
-    /**
-     * Input Trainee first login credentials for login
-     * @param log login
-     * @param lastNameLetters password
-     **/
-    public void inputTraineeFirstLoginCredentials(String log, String lastNameLetters) {
-        checkTraineeFirstLoginForm();
-        inputLoginCredentials(traineeFirstLoginRecruitIDField, log, traineeFirstLoginPasswordField,
-                lastNameLetters, traineeFirstLoginButton);
     }
 
     /**
