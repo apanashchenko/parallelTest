@@ -1,1 +1,1 @@
-# This automation test framework for Livetell project, web client
+# This automation test framework with using parallel test runnig (TesttNG)
